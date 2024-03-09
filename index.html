@@ -1,0 +1,129 @@
+<html>
+<head>
+    <title>Length Converter App by PK</title>
+    <style>
+        body {
+            font-family: Arial;
+            background-color: azure;
+        }
+        h1 {
+            font-size: 50px;	
+            margin-bottom: 40px; margin-top: 60px;
+            text-align: center;
+            color: black;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        label {
+            font-size: 35px;
+            margin-bottom: 20px; 
+            color: darkblue;
+        }
+        input[type="text"] {
+            width: 350px;
+            height: 40px;
+            font-size: 28px;
+            padding: 10px;
+            border: 2px solid black;
+            border-radius: 5px;
+            margin-bottom: 10px;
+            box-sizing: border-box;
+        }
+        .btn-container {
+            display: flex;
+            justify-content: space-around;
+            width: 100%;
+            margin-bottom: 20px;
+        }
+        button {
+            width: 200px;
+            height: 50px;
+            font-size: 20px;
+            background-color: green;
+            color: white; margin-bottom: 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+<center>
+    <h1>Length Converter</h1>
+    <form id="lengthConverterForm">
+        <div>
+            <label for="inch">Inches:</label>
+            <input type="text" placeholder="enter length in inches" id="inch" required>
+        </div>
+        <br><br>
+        <div>
+            <label for="mm">Millimeters:</label>
+            <input type="text" placeholder="enter length in millimeters" id="mm" required>
+        </div>
+        <br><br>
+        <button type="button" onclick="convert('inch')">Convert to Millimeters</button>
+        <button type="button" onclick="convert('mm')">Convert to Inches</button>
+        <button type="button" onclick="clearFields()">Clear</button>
+    </form>
+</center>
+
+<script>
+    let inch = document.getElementById("inch");
+    let mm = document.getElementById("mm");
+
+    function convert(unit) {
+        if (unit === "inch") {
+            let inchInput = inch.value.trim();
+            if (inchInput === "") {
+                alert("Inches cannot be empty.");
+                return;
+            } else if (isNaN(inchInput)) {
+                alert("Inches must be a number.");
+                return;
+            } else if (parseFloat(inchInput) < 0) {
+                alert("Inches cannot be negative.");
+                return;
+            } else if (!/^\d*\.?\d*$/.test(inchInput)) {
+                alert("Inches must not contain special characters.");
+                return;
+            } else {
+                let inchValue = parseFloat(inchInput);
+                let mmValue = (inchValue * 25.4).toFixed(2);
+                mm.value = mmValue;
+            }
+        } else if (unit === "mm") {
+            let mmInput = mm.value.trim();
+            if (mmInput === "") {
+                alert("Millimeters cannot be empty.");
+                return;
+            } else if (isNaN(mmInput)) {
+                alert("Millimeters must be a number.");
+                return;
+            } else if (parseFloat(mmInput) < 0) {
+                alert("Millimeters cannot be negative.");
+                return;
+            } else if (!/^\d*\.?\d*$/.test(mmInput)) {
+                alert("Millimeters must not contain special characters.");
+                return;
+            } else {
+                let mmValue = parseFloat(mmInput);
+                let inchValue = (mmValue / 25.4).toFixed(2);
+                inch.value = inchValue;
+            }
+        }
+    }
+
+    function clearFields() {
+        inch.value = "";
+        mm.value = "";
+    }
+</script>
+</body>
+</html>
